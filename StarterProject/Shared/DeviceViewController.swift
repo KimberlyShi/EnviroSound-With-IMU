@@ -18,7 +18,7 @@ class DeviceViewController: UIViewController {
     let PI : Double = 3.14159265359
     
     var device: MBLMetaWear!
-    var timer : Timer?
+    var seagullTimer : Timer?
     var startTime : TimeInterval?
     
     var isPlaying: Bool = false
@@ -36,6 +36,7 @@ class DeviceViewController: UIViewController {
     var seagullX : Float = -50
     var seagullY : Float = 20
     var seagullZ : Float = -5
+    var seagullDX: Float = 0.1  //refers to change in x
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
@@ -151,6 +152,7 @@ class DeviceViewController: UIViewController {
             soundArray.append(String(index) + ".wav")
         }
         playSoundsController = PlaySoundsController(file: soundArray)
+        stopSeagullTimer()
         
         switch env.name{
         case "Forest":
@@ -197,30 +199,25 @@ class DeviceViewController: UIViewController {
     }
     
     func seagulls() {
-        timer = Timer()
-        //startTime = TimeInterval()
         let aSelector : Selector = #selector(self.moveSoundsLinearPath)
-        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: aSelector,     userInfo: nil, repeats: true)
-        //startTime = Date.timeIntervalSinceReferenceDate
-        //play seagulls here
-        playSoundsController.play(index: 0)
+        seagullTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: aSelector, userInfo: nil, repeats: true)
     }
     
     func moveSoundsLinearPath() {
-        print(seagullX)
+        //print(seagullX)
         playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: seagullX, y: seagullY, z: seagullZ))
-        seagullX += 0.1
-        if seagullX > 100.0 {
-            playSoundsController.stop(index: 0)
-            stopTimer()
-            seagullX = -100
+        seagullX += seagullDX
+        if (seagullX > 60.0  || seagullX < -60.0){
+            //playSoundsController.stop(index: 0)
+            //stopBirdsTimer()
+            seagullDX = -seagullDX
         }
     }
     
-    func stopTimer() {
-        if timer != nil {
-            timer?.invalidate()
-            timer = nil
+    func stopSeagullTimer() {
+        if seagullTimer != nil {
+            seagullTimer?.invalidate()
+            seagullTimer = nil
         }
     }
 }
