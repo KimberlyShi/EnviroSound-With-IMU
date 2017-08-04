@@ -111,12 +111,10 @@ class DeviceViewController: UIViewController {
             //forest
             environment = Environment(name: "Forest", indexStart: 0, numberOfSounds: 3)
             //print(sender.tag)
-            print ("y")
             
         case 1:
             //beach
             environment = Environment(name: "Beach", indexStart: 3, numberOfSounds: 2)
-            print ("z")
         case 2:
             //music school
             environment = Environment(name: "Music School", indexStart: 5, numberOfSounds: 3)
@@ -209,17 +207,19 @@ class DeviceViewController: UIViewController {
         
         switch env.name{
         case "Forest":
-            playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: 0, y: 0, z: -15))
+            playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: -50, y: 20, z: -5))
+            
             //maybe can rotate around later w/timer like seagulls?
-            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: -20, y: 10, z: 5))
+            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 0, y: 9999, z: -1))
             
             //maybe play when gyromoves?
-            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 5, y: -2, z: 5))
+            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 0, y: 0, z: -7.5))
+            seagulls()
             
         case "Beach":
-            playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: 0, y: 0, z: -15))
+            playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: -50, y: 20, z: -5))
             //seagulls: maybe can rotate around later w/timer
-            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: -50, y: 20, z: -5))
+            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 0, y: 0, z: -5))
             seagulls()
         case "Music School":
             playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: -40, y: 0, z: 0))
