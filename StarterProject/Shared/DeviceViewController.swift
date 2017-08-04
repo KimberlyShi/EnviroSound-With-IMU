@@ -21,7 +21,7 @@ class DeviceViewController: UIViewController {
     var bigY: Double = 0
     var bigZ: Double = 0
     var device: MBLMetaWear!
-    var timer : Timer?
+    var seagullTimer : Timer?
     var startTime : TimeInterval?
     
     var motionGyroManager = CMMotionManager()
@@ -41,6 +41,7 @@ class DeviceViewController: UIViewController {
     var seagullX : Float = -50
     var seagullY : Float = 20
     var seagullZ : Float = -5
+    var seagullDX: Float = 0.1  //refers to change in x
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
@@ -204,25 +205,26 @@ class DeviceViewController: UIViewController {
             soundArray.append(String(index) + ".wav")
         }
         playSoundsController = PlaySoundsController(file: soundArray)
+        stopSeagullTimer()
         
         switch env.name{
         case "Forest":
-            playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: 0, y: 0, z: -50))
+            playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: 0, y: 0, z: -15))
             //maybe can rotate around later w/timer like seagulls?
-            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 7.5, y: 10, z: 7.5 * sqrt(2.0)))
+            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: -20, y: 10, z: 5))
             
             //maybe play when gyromoves?
-            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 0, y: -2, z: 0))
+            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 5, y: -2, z: 5))
             
         case "Beach":
-            playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: 0, y: 20, z: -15))
+            playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: 0, y: 0, z: -15))
             //seagulls: maybe can rotate around later w/timer
-            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 7.5, y: -10, z: 15 * sqrt(2.0)))
+            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: -50, y: 20, z: -5))
             seagulls()
         case "Music School":
-            playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: 0, y: 0, z: -15))
-            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 7.5*sqrt(3.0), y: 0, z: 7.5))
-            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: -7.5 * sqrt(3.0), y: 0, z: 7.5))
+            playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: -40, y: 0, z: 0))
+            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 15, y: 0, z: 15))
+            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 0, y: 0, z: -15))
         case "Cello":
             playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: 0, y: 0, z: -7.5))
             playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 3.25, y: 0, z: -3.25 * sqrt(3.0)))
@@ -250,30 +252,25 @@ class DeviceViewController: UIViewController {
     }
     
     func seagulls() {
-        timer = Timer()
-        //startTime = TimeInterval()
         let aSelector : Selector = #selector(self.moveSoundsLinearPath)
-        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: aSelector,     userInfo: nil, repeats: true)
-        //startTime = Date.timeIntervalSinceReferenceDate
-        //play seagulls here
-        playSoundsController.play(index: 0)
+        seagullTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: aSelector, userInfo: nil, repeats: true)
     }
     
     func moveSoundsLinearPath() {
-        print(seagullX)
+        //print(seagullX)
         playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: seagullX, y: seagullY, z: seagullZ))
-        seagullX += 0.1
-        if seagullX > 100.0 {
-            playSoundsController.stop(index: 0)
-            stopTimer()
-            seagullX = -100
+        seagullX += seagullDX
+        if (seagullX > 60.0  || seagullX < -60.0){
+            //playSoundsController.stop(index: 0)
+            //stopBirdsTimer()
+            seagullDX = -seagullDX
         }
     }
     
-    func stopTimer() {
-        if timer != nil {
-            timer?.invalidate()
-            timer = nil
+    func stopSeagullTimer() {
+        if seagullTimer != nil {
+            seagullTimer?.invalidate()
+            seagullTimer = nil
         }
     }
 }
