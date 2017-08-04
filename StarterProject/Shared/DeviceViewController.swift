@@ -8,6 +8,7 @@
 
 import UIKit
 import MetaWear
+import CoreMotion
 import AVFoundation
 
 class DeviceViewController: UIViewController {
@@ -16,10 +17,14 @@ class DeviceViewController: UIViewController {
     @IBOutlet weak var headView: headViewController!
     
     let PI : Double = 3.14159265359
-    
+    var bigX: Double = 0
+    var bigY: Double = 0
+    var bigZ: Double = 0
     var device: MBLMetaWear!
     var seagullTimer : Timer?
     var startTime : TimeInterval?
+    
+    var motionGyroManager = CMMotionManager()
     
     var isPlaying: Bool = false
     
@@ -48,6 +53,55 @@ class DeviceViewController: UIViewController {
         }
         // load Forest Environemnt into struc
     }
+    
+    func loadDics(_ data: [String: Float]) {
+        let pitch = data["pitch"]
+        let yaw = data["yaw"]
+        let roll = data["roll"]
+        
+        var degree = degrees(Double(yaw!))
+        if (playSoundsController != nil){
+            playSoundsController.updateAngularOrientation(Float(degrees(Double(yaw!))))
+        }
+        if (degrees(Double(yaw!)) < 0) {
+            degree = abs(degrees(Double(yaw!)))
+            if (degree <= 90) {
+                degree = 360 - degree
+            }
+            else if (degree > 90) {
+                degree = 180 - degree + 180
+            }
+        }
+        else {
+            degree = degrees(Double(yaw!))
+        }
+        playSoundsController.updateAngularOrientation(Float(degree))
+    }
+    
+    
+    func startGyro() {
+        motionGyroManager.deviceMotionUpdateInterval = 0.1
+        
+        motionGyroManager.startDeviceMotionUpdates(using: CMAttitudeReferenceFrame.xArbitraryCorrectedZVertical, to: OperationQueue.main) {
+            (motion: CMDeviceMotion?, _) in
+            if let attitude: CMAttitude = motion?.attitude {
+                var d = [String:Float]()
+                d["roll"] = Float(attitude.roll)
+                d["pitch"] = Float(attitude.pitch)
+                d["yaw"] = Float(attitude.yaw)
+                //print(d)
+                self.loadDics(d)
+            }
+        }
+
+    }
+    
+    @IBAction func useGyro(_ sender: UIButton) {
+        stopPressed(sender: 69 as AnyObject)
+        startGyro()
+    }
+    
+
     
     @IBAction func environment(_ sender: UIButton) {
         isPlaying = true
@@ -112,8 +166,6 @@ class DeviceViewController: UIViewController {
         let z = radians(obj.r)
         headView.setPointerPosition(w: 0.0, x : x, y: y, z: z)
         playSoundsController.updateAngularOrientation(abs(Float(365 - obj.y)))
-
-        
     }
  
     func radians(_ degree: Double) -> Double {
@@ -125,6 +177,7 @@ class DeviceViewController: UIViewController {
     
     
     @IBAction func startPressed(sender: AnyObject) {
+        motionGyroManager.stopDeviceMotionUpdates()
         if (isPlaying) {
             device.sensorFusion?.eulerAngle.startNotificationsAsync { (obj, error) in
                 self.getFusionValues(obj: obj!)
