@@ -228,8 +228,8 @@ class DeviceViewController: UIViewController {
             playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 0, y: 0, z: -15))*/
         case "Fireside":
             playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: -0, y: 0, z: -2))
-            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: -50, y: 0, z: 50))
-            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 50, y: 0, z: 50))
+            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: -30, y: 0, z: 30))
+            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 30, y: 0, z: 30))
         case "Cello":
             playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: 0, y: 0, z: -7.5))
             playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 3.25, y: 0, z: -3.25 * sqrt(3.0)))
