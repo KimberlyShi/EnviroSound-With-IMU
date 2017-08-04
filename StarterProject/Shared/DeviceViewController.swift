@@ -211,10 +211,10 @@ class DeviceViewController: UIViewController {
             playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: -50, y: 20, z: -5))
             
             //maybe can rotate around later w/timer like seagulls?
-            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 0, y: 9999, z: -1))
+            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 0, y: 20, z: -1))
             
             //maybe play when gyromoves?
-            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 0, y: 0, z: -7.5))
+            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 0, y: 0, z: -3))
             seagulls()
             
         case "Beach":
