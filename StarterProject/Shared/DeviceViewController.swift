@@ -117,7 +117,8 @@ class DeviceViewController: UIViewController {
             environment = Environment(name: "Beach", indexStart: 3, numberOfSounds: 2)
         case 2:
             //music school
-            environment = Environment(name: "Music School", indexStart: 5, numberOfSounds: 3)
+            //environment = Environment(name: "Music School", indexStart: 5, numberOfSounds: 3)
+            environment = Environment(name: "Fireside", indexStart: 5, numberOfSounds: 3)
         case 3:
             //cello
             environment = Environment(name: "Cello", indexStart: 8, numberOfSounds: 12) //12
@@ -221,10 +222,14 @@ class DeviceViewController: UIViewController {
             //seagulls: maybe can rotate around later w/timer
             playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 0, y: 0, z: -5))
             seagulls()
-        case "Music School":
+        /*case "Music School":
             playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: -40, y: 0, z: 0))
             playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 15, y: 0, z: 15))
-            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 0, y: 0, z: -15))
+            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 0, y: 0, z: -15))*/
+        case "Fireside":
+            playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: -0, y: 0, z: -2))
+            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: -50, y: 0, z: 50))
+            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 50, y: 0, z: 50))
         case "Cello":
             playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: 0, y: 0, z: -7.5))
             playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 3.25, y: 0, z: -3.25 * sqrt(3.0)))
