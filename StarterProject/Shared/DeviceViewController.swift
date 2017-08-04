@@ -214,13 +214,13 @@ class DeviceViewController: UIViewController {
             playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 0, y: 20, z: -1))
             
             //maybe play when gyromoves?
-            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 0, y: 0, z: -3))
+            playSoundsController.updatePosition(index: 2, position: AVAudio3DPoint(x: 0, y: 0, z: -9))
             seagulls()
             
         case "Beach":
             playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: -50, y: 20, z: -5))
             //seagulls: maybe can rotate around later w/timer
-            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 0, y: 0, z: -5))
+            playSoundsController.updatePosition(index: 1, position: AVAudio3DPoint(x: 0, y: 0, z: -9))
             seagulls()
         /*case "Music School":
             playSoundsController.updatePosition(index: 0, position: AVAudio3DPoint(x: -40, y: 0, z: 0))
