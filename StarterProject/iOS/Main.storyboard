@@ -296,6 +296,9 @@
                                 <state key="normal" title="Start Gyroscope">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="useGyro:" destination="XFA-76-WTO" eventType="touchUpInside" id="doe-df-sp1"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="ivG-47-AeU">
                                 <rect key="frame" x="7" y="90" width="135" height="137"/>
