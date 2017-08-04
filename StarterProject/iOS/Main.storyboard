@@ -251,7 +251,7 @@
                             </sceneKitView>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNP-cN-onN">
                                 <rect key="frame" x="13" y="807" width="743" height="189"/>
-                                <state key="normal" backgroundImage="fireside"/>
+                                <state key="normal" backgroundImage="4"/>
                                 <connections>
                                     <action selector="environment:" destination="XFA-76-WTO" eventType="touchUpInside" id="nx4-aQ-CHK"/>
                                 </connections>
@@ -359,7 +359,6 @@
         <image name="2" width="2500" height="750"/>
         <image name="4" width="2500" height="750"/>
         <image name="MetaWear" width="157" height="157"/>
-        <image name="fireside" width="2500" height="750"/>
         <image name="icon" width="512" height="512"/>
         <image name="wifi_d1" width="64" height="64"/>
     </resources>
